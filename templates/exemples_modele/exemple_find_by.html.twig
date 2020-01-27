@@ -1,3 +1,6 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
 On cherchait plusieurs livres...
 <br>
 {% for livre in livres %}
@@ -9,3 +12,4 @@ On cherchait plusieurs livres...
     {{ livre.datePublication.format("y") }}
     <br><br>
 {% endfor %}
+{% endblock %}
