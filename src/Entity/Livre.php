@@ -43,12 +43,23 @@ class Livre
      */
     private $isbn;
 
+
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Exemplaire", mappedBy="livre")
+     * @ORM\OneToMany(targetEntity="App\Entity\Exemplaire", mappedBy="livre",
+     *                  cascade={"persist"})
      */
     private $exemplaires;
 
-    
+    // crée par nous mêmes
+    public function hydrate(array $init)
+    {
+        foreach ($init as $key => $value) {
+            $method = "set" . ucfirst($key);
+            if (method_exists($this, $method)) {
+                $this->$method($value);
+            }
+        }
+    }
     public function __construct()
     {
         $this->exemplaires = new ArrayCollection();
@@ -150,5 +161,11 @@ class Livre
         return $this;
     }
 
-    
+    // rajouté pour permettre l'encapsulation
+    public function addExemplaireNoClass($etat, $emplacement)
+    {
+        $exemplaire = new \App\Entity\Exemplaire();
+        $exemplaire->setEtat($etat);
+        $this->addExemplaire($exemplaire);
+    }
 }
