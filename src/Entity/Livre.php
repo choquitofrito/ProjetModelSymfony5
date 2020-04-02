@@ -50,6 +50,11 @@ class Livre
      */
     private $exemplaires;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Auteur", inversedBy="livres")
+     */
+    private $auteur;
+
     // crée par nous mêmes
     public function hydrate(array $init)
     {
@@ -167,5 +172,17 @@ class Livre
         $exemplaire = new \App\Entity\Exemplaire();
         $exemplaire->setEtat($etat);
         $this->addExemplaire($exemplaire);
+    }
+
+    public function getAuteur(): ?Auteur
+    {
+        return $this->auteur;
+    }
+
+    public function setAuteur(?Auteur $auteur): self
+    {
+        $this->auteur = $auteur;
+
+        return $this;
     }
 }
