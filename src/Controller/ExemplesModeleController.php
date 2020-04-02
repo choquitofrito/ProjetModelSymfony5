@@ -210,7 +210,7 @@ class ExemplesModeleController extends AbstractController
         $em = $this->getDoctrine()->getManager();
         $unLivre = $em->getRepository(Livre::class)->findOneBy(array("titre" => "Life and fate"));
         $unLivre->setTitre("La vie est belle");
-        // dump ($unLivre);
+        // dd ($unLivre);
 
         // recharge le livre de la BD, il y aura le titre original
         $em->refresh($unLivre);
